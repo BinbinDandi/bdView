@@ -12,25 +12,54 @@ import {
   Text,
   View
 } from 'react-native';
-
-var MOCKED_MOVIES_DATA = [
-  {
-    title: '标题',
-    year: 24,
-    posters: {thumbnail: 'http://i.imgur.com/UePbdph.jpg'},
-  }
-];
+import TabNavigator from 'react-native-tab-navigator';
 
 export default class MyApp extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      selectedTab: 'shouye',
+    }
+  }
   render() {
-    var movie = MOCKED_MOVIES_DATA[0];
     return (
       <View style={styles.container}>
-        <Image source={{ uri: movie.posters.thumbnail }} style={styles.thumbnail} />
-        <View style={styles.rightContiner}>
-          <Text style={styles.title}>{movie.title}</Text>
-          <Text style={styles.year}>{movie.year}</Text>
-        </View>
+        <TabNavigator>
+          <TabNavigator.Item
+              selected = {this.state.selectedTab === 'shouye'}
+              title = '首页'
+              renderIcon = {() => <Image source = {require('./res/images/home.png')} />}
+              renderSelectedIcon = {() => <Image source = {require('./res/images/home.png')} />}
+              badgeText = '1'
+              onPress = {() => this.setState({selectedTab: 'shouye'})}>
+            <View style={styles.page1}></View>
+          </TabNavigator.Item>
+          <TabNavigator.Item
+              selected = {this.state.selectedTab === 'haoyou'}
+              title = '好友'
+              renderIcon = {() => <Image source = {require('./res/images/profile.png')} />}
+              renderSelectedIcon = {() => <Image source = {require('./res/images/profile.png')} />}
+              onPress = {() => this.setState({selectedTab: 'haoyou'})}>
+            <View style={styles.page2}></View>
+          </TabNavigator.Item>
+          <TabNavigator.Item
+              selected = {this.state.selectedTab === 'xiaoxi'}
+              title = '消息'
+              renderIcon = {() => <Image source = {require('./res/images/home.png')} />}
+              renderSelectedIcon = {() => <Image source = {require('./res/images/home.png')} />}
+              badgeText = '1'
+              onPress = {() => this.setState({selectedTab: 'xiaoxi'})}>
+            <View style={styles.page3}></View>
+          </TabNavigator.Item>
+          <TabNavigator.Item
+              selected = {this.state.selectedTab === 'wode'}
+              title = '我的'
+              renderIcon = {() => <Image source = {require('./res/images/profile.png')} />}
+              renderSelectedIcon = {() => <Image source = {require('./res/images/profile.png')} />}
+              onPress = {() => this.setState({selectedTab: 'wode'})}>
+            <View style={styles.page4}></View>
+          </TabNavigator.Item>
+        </TabNavigator>
       </View>
     );
   }
@@ -39,26 +68,24 @@ export default class MyApp extends Component {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#F5FCFF'
   },
-  rightContiner: {
+  page1: {
     flex: 1,
+    backgroundColor: '#f00'
   },
-  thumbnail: {
-    width: 53,
-    height: 81,
+  page2: {
+    flex: 1,
+    backgroundColor: '#0f0'
   },
-  title: {
-    fontSize: 20,
-    textAlign: 'center',
-    marginBottom: 8,
+  page3: {
+    flex: 1,
+    backgroundColor: '#f0f'
   },
-  year: {
-    textAlign: 'center',
-  },
+  page4: {
+    flex: 1,
+    backgroundColor: '#ff0'
+  }
 })
 
 AppRegistry.registerComponent('MyApp', () => MyApp);
